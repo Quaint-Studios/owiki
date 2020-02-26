@@ -1,0 +1,39 @@
+{
+  "name": "owiki",
+  "version": "1.0.0",
+  "description": "A modern free open-source wiki solution.",
+  "scripts": {
+    "install": "concurrently \"cd functions && npm install\" \"cd react && npm install\"",
+    "buildServer": "cd functions && npm run build",
+    "watchServer": "cd functions && npm run watch",
+    "testServer": "cd functions && npm run test",
+    "buildClient": "cd react && npm run build",
+    "watchClient": "cd react && npm run watch",
+    "testClient": "cd react && npm run test",
+    "buildAll": "concurrently \"npm run buildServer\" \"npm run buildClient\"",
+    "serve": "firebase emulators:start",
+    "watchAndServe": "concurrently \"cd functions && npm run watch\" \"firebase emulators:start\"",
+    "deploy": "firebase deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quaint-Studios/owiki.git"
+  },
+  "keywords": [
+    "wiki",
+    "free",
+    "opensource",
+    "modern"
+  ],
+  "author": {
+    "name": "Kristopher Ali",
+    "email": "kristopher.ali.dev@gmail.com",
+    "url": "https://makosai.com"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Quaint-Studios/owiki/issues"
+  },
+  "homepage": "https://github.com/Quaint-Studios/owiki#readme"
+}
