@@ -1,6 +1,7 @@
 // Modules
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './components/firebase/firebase.main';
 
 // Resources
 import './index.scss';
