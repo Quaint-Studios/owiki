@@ -6,7 +6,17 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@express/*": [
+        "express/*"
+      ]
+    }
   },
   "compileOnSave": true,
   "include": [
