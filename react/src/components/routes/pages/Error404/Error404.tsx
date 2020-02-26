@@ -9,5 +9,5 @@ export default function Error404() {
     "Ooops!"
   ];
 
-  return <>{`Error 404! ${Math.floor(Math.random() * fun.length)}`}</>;
+  return <>{`Error 404! ${fun[Math.floor(Math.random() * fun.length)]}`}</>;
 }
