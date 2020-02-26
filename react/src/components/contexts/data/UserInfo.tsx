@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 import { auth } from 'firebase/app';
 import { login, logout } from 'components/firebase/firebase.auth';
+import { IEmailCredentials } from 'components/firebase/firebase.providers';
 
 //#region Interfaces & Enums
 /**
@@ -34,13 +35,14 @@ export enum ActionType {
  */
 interface IPayload {
   user?: firebase.User | null;
+  credentials?: IEmailCredentials;
   error?: firebase.auth.Error;
   loading?: boolean;
 }
 
 interface IAction {
   type: ActionType;
-  payload?: IPayload | null;
+  payload?: IPayload;
 }
 
 /**
@@ -51,7 +53,6 @@ interface IProvider {
   children: any;
 }
 //#endregion
-
 
 //#region Context
 
@@ -78,7 +79,13 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
         return { ...state };
       }
 
-      login();
+      // TODO: Temporarily the only auth support for a while.
+      if(action.payload === undefined || action.payload.credentials === undefined) {
+        console.error('Google Auth Error: Missing payload for LOGIN.');
+        return { ...state };
+      }
+
+      login.handleEmailProvider('login', action.payload.credentials);
 
       return { ...state, loading: true };
 
@@ -92,6 +99,9 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
         console.error('UserInfo Reducer Error: Missing payload in UPDATE.');
         return { ...state };
       }
+
+      // Sanitize.
+      delete action.payload.credentials;
 
       return { ...state, ...action.payload };
 
