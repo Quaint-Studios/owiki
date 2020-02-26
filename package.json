@@ -13,7 +13,8 @@
     "buildAll": "concurrently \"npm run buildServer\" \"npm run buildClient\"",
     "serve": "firebase emulators:start",
     "watchAndServe": "concurrently \"cd functions && npm run watch\" \"firebase emulators:start\"",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "buildAndDeploy": "concurrently \"npm run buildServer\" \"npm run buildClient\" && firebase deploy"
   },
   "repository": {
     "type": "git",
