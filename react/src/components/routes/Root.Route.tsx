@@ -1,7 +1,7 @@
-import { IRoute } from "./Routes";
+import { IRoute } from './Routes';
 
-import Home from "./pages/Home/Home";
-import Error404 from "./pages/Error404/Error404";
+import Home from './pages/Home/Home';
+import Error404 from './pages/Error404/Error404';
 
 const RootRoutes: IRoute[] = [
   {
@@ -11,9 +11,8 @@ const RootRoutes: IRoute[] = [
   },
   {
     name: 'Error 404',
-    path: null,
     component: Error404
   }
-]
+];
 
 export default RootRoutes;

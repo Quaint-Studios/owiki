@@ -1,12 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { withRoute } from 'components/contexts/AppContexts';
 
 export default function Routes({ routes }: IRoutes) {
   const defaults = {
     hideNav: false
-  }
+  };
 
   function reduceRoutes(
     routes: IRoute[],
@@ -18,20 +18,22 @@ export default function Routes({ routes }: IRoutes) {
       const next = curr;
 
       next.name = prevName + next.name;
-      next.path = prevPath + next.path;
+      if (next.path !== undefined) {
+        next.path = prevPath + next.path;
+      }
 
-      if(next.roles === true) {
+      if (next.roles === true) {
         next.roles = prevRole;
       }
 
       // Set defaults.
-      if(next.hideNav === undefined) {
+      if (next.hideNav === undefined) {
         next.hideNav = defaults.hideNav;
       }
 
       // Loop children.
       let child;
-      if(next.children !== undefined && next.children.length > 0) {
+      if (next.children !== undefined && next.children.length > 0) {
         child = reduceRoutes(next.children, next.name, next.path, next.roles);
       }
 
@@ -39,7 +41,7 @@ export default function Routes({ routes }: IRoutes) {
       delete next.children;
 
       let final;
-      if(child !== undefined) {
+      if (child !== undefined) {
         final = [...prev, next, ...child];
       } else {
         final = [...prev, next];
@@ -55,16 +57,16 @@ export default function Routes({ routes }: IRoutes) {
       route
     );
 
-    if (route.path !== null) {
+    if (route.path !== undefined) {
       return (
         <Route key={route.name} exact path={route.path} component={component} />
       );
     }
 
-    return (<Route key={route.name} component={component} />); // 404 Not Found.
-  })
+    return <Route key={route.name} component={component} />; // 404 Not Found.
+  });
 
-  return <>{reducedRoutes}</>;
+  return <Switch>{reducedRoutes}</Switch>;
 }
 
 interface IRoutes {
@@ -73,7 +75,7 @@ interface IRoutes {
 
 export interface IRoute {
   name: string;
-  path: string | null;
+  path?: string;
   component: any;
   hideNav?: boolean;
   roles?: true | string[];
