@@ -16,29 +16,33 @@ export interface IEmailCredentials {
  */
 export function handleEmailProvider(
   authOption: AuthOptions,
-  credentials: IEmailCredentials
+  credentials: IEmailCredentials,
+  errorCallback?: Function
 ) {
   const { email, password } = credentials;
 
   switch (authOption) {
     case 'register':
-      auth()
+      return auth()
         .createUserWithEmailAndPassword(email, password)
         .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
           if (errorCode === 'auth/weak-password') {
-            alert('The password is too weak.');
+            console.log('The password is too weak.');
           } else {
-            alert(errorMessage);
+            console.log(errorMessage);
           }
+
           console.error(error);
+
+          if (errorCallback) errorCallback(error);
         });
-      break;
 
     case 'login':
-      auth()
+    default:
+      return auth()
         .signInWithEmailAndPassword(email, password)
         .catch(function(error) {
           // Handle Errors here.
@@ -51,10 +55,6 @@ export function handleEmailProvider(
           }
           console.error(error);
         });
-      break;
-
-    default:
-      break;
   }
 }
 
