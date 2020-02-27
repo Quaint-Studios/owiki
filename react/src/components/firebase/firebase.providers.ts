@@ -33,7 +33,7 @@ export function handleEmailProvider(
           } else {
             alert(errorMessage);
           }
-          console.log(error);
+          console.error(error);
         });
       break;
 
@@ -49,7 +49,7 @@ export function handleEmailProvider(
           } else {
             alert(errorMessage);
           }
-          console.log(error);
+          console.error(error);
         });
       break;
 
