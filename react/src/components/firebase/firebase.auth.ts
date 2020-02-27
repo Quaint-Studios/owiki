@@ -2,7 +2,7 @@ import { auth } from 'firebase/app';
 import 'firebase/auth';
 import { handleEmailProvider, handleGoogleProvider } from './firebase.providers';
 
-export const login = {
+export const providers = {
     handleEmailProvider,
     handleGoogleProvider
 };

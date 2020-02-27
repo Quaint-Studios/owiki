@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 import { auth } from 'firebase/app';
-import { login, logout } from 'components/firebase/firebase.auth';
+import { providers, logout } from 'components/firebase/firebase.auth';
 import { IEmailCredentials } from 'components/firebase/firebase.providers';
 
 //#region Interfaces & Enums
@@ -85,7 +85,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
         return { ...state };
       }
 
-      login.handleEmailProvider('login', action.payload.credentials);
+      providers.handleEmailProvider('login', action.payload.credentials);
 
       return { ...state, loading: true };
 
