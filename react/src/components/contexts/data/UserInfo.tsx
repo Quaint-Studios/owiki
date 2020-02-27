@@ -3,13 +3,22 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { auth } from 'firebase/app';
 import { providers, logout } from 'components/firebase/firebase.auth';
 import { IEmailCredentials } from 'components/firebase/firebase.providers';
+import { db } from 'components/firebase/firebase.main';
 
 //#region Interfaces & Enums
+/**
+ * The structure for profiles.
+ */
+interface IProfile {
+  username: string;
+}
+
 /**
  * The structure of the state.
  */
 interface IState {
   user: firebase.User | null;
+  profile: IProfile | null;
   error?: firebase.auth.Error;
   loading: boolean;
 }
@@ -35,6 +44,7 @@ export enum ActionType {
  */
 interface IPayload {
   user?: firebase.User | null;
+  profile?: IProfile | null;
   credentials?: IEmailCredentials;
   error?: firebase.auth.Error;
   loading?: boolean;
@@ -80,7 +90,10 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
       }
 
       // TODO: Temporarily the only auth support for a while.
-      if(action.payload === undefined || action.payload.credentials === undefined) {
+      if (
+        action.payload === undefined ||
+        action.payload.credentials === undefined
+      ) {
         console.error('Google Auth Error: Missing payload for LOGIN.');
         return { ...state };
       }
@@ -117,6 +130,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 export function UserInfo({ children }: IProps) {
   const initialState: IState = {
     user: null,
+    profile: null,
     error: undefined,
     loading: true
   };
@@ -130,11 +144,18 @@ export function UserInfo({ children }: IProps) {
   useEffect(() => {
     /** When the firebase auth changes, set the user data (error, or new user), then set loading to false. */
     const unsubscribeAuthStateListener = auth().onAuthStateChanged(
-      newUser =>
+      async newUser => {
+        let profile: IProfile | null = null;
+
+        if (newUser) {
+          profile = (await db.ref(`users/${newUser.uid}`).once('value')).val();
+        }
+
         setUserInfo({
           type: ActionType.UPDATE,
-          payload: { user: newUser, loading: false }
-        }),
+          payload: { user: newUser, profile, loading: false }
+        });
+      },
       (error: firebase.auth.Error) =>
         setUserInfo({
           type: ActionType.UPDATE,
