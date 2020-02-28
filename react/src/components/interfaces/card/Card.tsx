@@ -7,6 +7,7 @@ import Logo from 'data/imgs/logo.svg';
 import { Link } from 'react-router-dom';
 
 export default function Card({
+  className = '',
   logo = Logo,
   title = { value: '', pos: 'top', size: 'lg' },
   description = { value: '', size: 'sm' },
@@ -39,8 +40,8 @@ export default function Card({
     case 'top':
       response = (
         <>
-          <span className="title">{title.value}</span>
-          <span>{description.value}</span>
+          <span className={`title ${title.size}`}>{title.value}</span>
+          <span className={description.size}>{description.value}</span>
         </>
       );
       break;
@@ -48,15 +49,15 @@ export default function Card({
     case 'bottom':
       response = (
         <>
-          <span>{description.value}</span>
-          <span className="title">{title.value}</span>
+          <span className={description.size}>{description.value}</span>
+          <span className={`title ${title.size}`}>{title.value}</span>
         </>
       );
       break;
   }
 
   return (
-    <>
+    <div className={`info-card ${className}`}>
       <div className="info">
         <span className="header">
           <img alt="owiki" className="logo" src={logo} />
@@ -65,7 +66,12 @@ export default function Card({
       </div>
       <div className="contents">
         {contents.map(content => {
-          return <content.value key={_uniqueId(`content-`)} />;
+          return (
+            <content.value.type
+              {...content.value.props}
+              key={_uniqueId(`content-`)}
+            />
+          );
         })}
       </div>
       <div className="actions">
@@ -93,11 +99,12 @@ export default function Card({
           return <></>;
         })}
       </div>
-    </>
+    </div>
   );
 }
 
 export interface ICard {
+  className?: string;
   logo?: string;
   title?: {
     value?: string;
@@ -109,7 +116,7 @@ export interface ICard {
     size?: 'lg' | 'md' | 'sm';
   };
   contents?: {
-    value: string;
+    value: JSX.Element;
   }[];
   actions?: {
     value: string;
