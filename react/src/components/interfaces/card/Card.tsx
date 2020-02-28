@@ -59,7 +59,7 @@ export default function Card({
     <>
       <div className="info">
         <span className="header">
-          <img className="logo" src={logo} />
+          <img alt="owiki" className="logo" src={logo} />
           <span className="response">{response}</span>
         </span>
       </div>
@@ -89,6 +89,8 @@ export default function Card({
 
             return <span {...actionProps}>{action.value}</span>;
           }
+
+          return <></>;
         })}
       </div>
     </>
@@ -108,7 +110,6 @@ export interface ICard {
   };
   contents?: {
     value: string;
-    type?: 'text' | 'input';
   }[];
   actions?: {
     value: string;
