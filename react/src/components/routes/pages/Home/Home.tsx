@@ -6,6 +6,7 @@ import { useUserInfoValue } from 'components/contexts/data/UserInfo';
 
 import { logout } from 'components/firebase/firebase.auth';
 import Card, { ICard } from 'components/interfaces/card/Card';
+import Container from 'components/interfaces/container/Container';
 
 export default function Home() {
   const [userInfo] = useUserInfoValue();
@@ -64,8 +65,8 @@ export default function Home() {
   }, [response, user, profile]);
 
   return (
-    <div className="container center-v center-h">
-      <div className="profile-card">{response.message}</div>
-    </div>
+    <Container className="center-v center-h">
+      {response.message}
+    </Container>
   );
 }

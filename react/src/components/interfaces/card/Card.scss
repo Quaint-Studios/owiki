@@ -5,22 +5,8 @@ $gradient-right: #b3c4fa;
 $gradient-end: #b3dcf7;
 $split-color: #d7d6fd;
 
-.container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-}
-
-.center-v {
-  align-items: center;
-}
-
-.center-h {
-  justify-content: center;
-}
-
-.profile-card {
-  color: #f0f0f0;
+.info-card {
+  color: #f0faf0;
   text-transform: uppercase;
 
   width: 350px;
@@ -75,11 +61,8 @@ $split-color: #d7d6fd;
         flex-direction: column;
         justify-content: center;
 
-        font-size: 0.65em;
-
         .title {
           display: block;
-          font-size: 2.4em;
           text-transform: none;
         }
       }
