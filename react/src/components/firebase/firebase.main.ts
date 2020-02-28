@@ -1,4 +1,9 @@
 import firebase from 'firebase/app';
 import config from './firebase.config.json';
 
-firebase.initializeApp(config);
+const app = firebase.initializeApp(config);
+
+/**
+ * Realtime Database
+ */
+export const db = app.database();

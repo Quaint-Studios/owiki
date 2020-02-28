@@ -3,7 +3,7 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { auth } from 'firebase/app';
 import { providers, logout } from 'components/firebase/firebase.auth';
 import { IEmailCredentials } from 'components/firebase/firebase.providers';
-import { db } from 'components/firebase/firebase.main';
+import { db } from 'components/firebase/firebase.database';
 
 //#region Interfaces & Enums
 /**
@@ -148,7 +148,12 @@ export function UserInfo({ children }: IProps) {
         let profile: IProfile | null = null;
 
         if (newUser) {
-          profile = (await db.ref(`users/${newUser.uid}`).once('value')).val();
+          await db.ref(`users/${newUser.uid}`)
+            .once('value')
+            .then(snapshot => {
+              profile = snapshot.val();
+            })
+            .catch(error => console.log(error));
         }
 
         setUserInfo({
