@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 
 import './Register.scss';
 import { providers } from 'components/firebase/firebase.auth';
-import { validateAccountFields, FieldTypes } from 'components/utils/validations.utils';
+import {
+  validateAccountFields,
+  FieldTypes
+} from 'components/utils/validations.utils';
+import Card, { ICard } from 'components/interfaces/card/Card';
+import Container from 'components/interfaces/container/Container';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -61,43 +66,71 @@ export default function Register() {
     }
   }
 
+  const cardProps: ICard = {
+    title: { value: 'Account' },
+    description: { value: 'Create' },
+    contents: [
+      {
+        value: (
+          <div
+            className={`input-group ${errors.email !== '' ? 'invalid' : ''}`}
+          >
+            <p className="input-name">Email address:</p>
+            <input
+              value={email}
+              onChange={e => {
+                setEmail(e.target.value);
+                validateField('email');
+              }}
+            />
+          </div>
+        )
+      },
+      {
+        value: (
+          <div
+            className={`input-group ${errors.username !== '' ? 'invalid' : ''}`}
+          >
+            <p className="input-name">Username:</p>
+            <input
+              value={username}
+              onChange={e => {
+                setUsername(e.target.value);
+                validateField('username');
+              }}
+            />
+          </div>
+        )
+      },
+      {
+        value: (
+          <div
+            className={`input-group ${errors.password !== '' ? 'invalid' : ''}`}
+          >
+            <p className="input-name">Password:</p>
+            <input
+              type="password"
+              value={password}
+              onChange={e => {
+                setPassword(e.target.value);
+                validateField('password');
+              }}
+            />
+          </div>
+        )
+      }
+    ],
+    actions: [
+      {
+        value: 'Register',
+        button: { onClick: handleRegister }
+      }
+    ]
+  };
+
   return (
-    <div className="register">
-      <div>Register</div>
-      <div className={errors.email !== '' ? 'invalid' : ''}>
-        <p>Email address:</p>
-        <input
-          value={email}
-          onChange={e => {
-            setEmail(e.target.value);
-            validateField('email');
-          }}
-        />
-      </div>
-      <div className={errors.username !== '' ? 'invalid' : ''}>
-        <p>Username:</p>
-        <input
-          value={username}
-          onChange={e => {
-            setUsername(e.target.value);
-            validateField('username');
-          }}
-        />
-      </div>
-      <div className={errors.password !== '' ? 'invalid' : ''}>
-        <p>Password:</p>
-        <input
-          type="password"
-          value={password}
-          onChange={e => {
-            setPassword(e.target.value);
-            validateField('password');
-          }}
-        />
-      </div>
-      <button type="submit" onClick={handleRegister}>
-        Register
-      </button>
-    </div>
+    <Container className="center-h center-v">
+      <Card className="register" {...cardProps} />
+    </Container>
   );
 }
