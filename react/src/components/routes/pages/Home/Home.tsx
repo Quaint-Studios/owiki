@@ -8,6 +8,7 @@ import { useUserInfoValue } from 'components/contexts/data/UserInfo';
 
 import { Link } from 'react-router-dom';
 import { logout } from 'components/firebase/firebase.auth';
+import Card, { ICard } from 'components/interfaces/card/Card';
 
 export default function Home() {
   const [userInfo] = useUserInfoValue();
@@ -25,51 +26,40 @@ export default function Home() {
   useEffect(() => {
     function updateResponse() {
       if (response.state !== 'logged-in' && user !== null && profile !== null) {
+        const cardProps: ICard = {
+          title: { value: profile.username },
+          description: { value: 'Profile Card' },
+          actions: [
+            {
+              value: 'Logout',
+              button: { onClick: logout }
+            }
+          ]
+        };
+
         setResponse({
           state: 'logged-in',
-          message: (
-            <>
-              <div className="info">
-                <span className="header">
-                  <img className="logo" src={Logo} />
-                  <span className="response">
-                    <span className="username">{profile.username}</span>
-                    <span>Profile Card</span>
-                  </span>
-                </span>
-              </div>
-              <div className="actions">
-                <span className="button" onClick={logout}>
-                  Logout
-                </span>
-              </div>
-            </>
-          )
+          message: <Card {...cardProps} />
         });
       } else if (response.state !== 'logged-out' && user === null) {
+        const cardProps: ICard = {
+          title: { value: 'owiki', pos: 'bottom' },
+          description: { value: 'Welcome to' },
+          actions: [
+            {
+              value: 'Login',
+              link: { to: '/login' }
+            },
+            {
+              value: 'Register',
+              link: { to: '/register' }
+            }
+          ]
+        };
+
         setResponse({
           state: 'logged-out',
-          message: (
-            <>
-              <div className="info">
-                <span className="header">
-                  <img className="logo" src={Logo} />
-                  <span className="response">
-                    <span>Welcome to</span>
-                    <span className="sitename">owiki</span>
-                  </span>
-                </span>
-              </div>
-              <div className="actions">
-                <Link className="button" to="/register">
-                  Register
-                </Link>
-                <Link className="button" to="/login">
-                  Login
-                </Link>
-              </div>
-            </>
-          )
+          message: <Card {...cardProps} />
         });
       }
     }
