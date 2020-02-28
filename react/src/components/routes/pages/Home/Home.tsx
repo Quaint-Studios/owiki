@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import './Home.scss';
 
-import Logo from 'data/imgs/logo.svg';
-
 import { useUserInfoValue } from 'components/contexts/data/UserInfo';
 
-import { Link } from 'react-router-dom';
 import { logout } from 'components/firebase/firebase.auth';
 import Card, { ICard } from 'components/interfaces/card/Card';
 
