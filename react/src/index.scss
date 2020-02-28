@@ -1,7 +1,31 @@
+@import './components/interfaces/input/Input.scss';
+
 html {
   font-family: 'Lato', sans-serif;
 }
 
 body {
   margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.lg {
+  font-size: 1.56em;
+}
+
+.sm {
+  font-size: 0.65em;
+}
+
+.center-v {
+  align-items: center;
+}
+
+.center-h {
+  justify-content: center;
 }
