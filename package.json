@@ -39,6 +39,7 @@
   "homepage": "https://github.com/Quaint-Studios/owiki#readme",
   "devDependencies": {
     "@types/jest": "^25.1.3",
+    "@types/lodash": "^4.14.149",
     "concurrently": "^5.1.0",
     "firebase-tools": "^7.13.1",
     "ts-jest": "^25.2.1",
