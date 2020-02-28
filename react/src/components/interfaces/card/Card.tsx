@@ -10,6 +10,7 @@ export default function Card({
   logo = Logo,
   title = { value: '', pos: 'top', size: 'lg' },
   description = { value: '', size: 'sm' },
+  contents = [],
   actions = []
 }: ICard) {
   // Defaults
@@ -62,8 +63,13 @@ export default function Card({
           <span className="response">{response}</span>
         </span>
       </div>
+      <div className="contents">
+        {contents.map(content => {
+          return <content.value key={_uniqueId(`content-`)} />;
+        })}
+      </div>
       <div className="actions">
-        {actions.map((action, key) => {
+        {actions.map(action => {
           if (action.link) {
             const actionProps = {
               key: _uniqueId(`${action.value}-`),
@@ -91,16 +97,20 @@ export default function Card({
 
 export interface ICard {
   logo?: string;
-  title: {
+  title?: {
     value?: string;
     pos?: 'top' | 'bottom';
     size?: 'lg' | 'md' | 'sm';
   };
-  description: {
+  description?: {
     value?: string;
     size?: 'lg' | 'md' | 'sm';
   };
-  actions: {
+  contents?: {
+    value: string;
+    type?: 'text' | 'input';
+  }[];
+  actions?: {
     value: string;
     link?: {
       to: string;
