@@ -1,39 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './Home.scss';
 
+import Logo from 'data/imgs/logo.svg';
+
 import { useUserInfoValue } from 'components/contexts/data/UserInfo';
-import { db } from 'components/firebase/firebase.main';
 
 import { Link } from 'react-router-dom';
+import { logout } from 'components/firebase/firebase.auth';
 
 export default function Home() {
   const [userInfo] = useUserInfoValue();
 
-  let response;
   const { user } = userInfo;
   const { profile } = userInfo;
 
-  if (user !== null && profile !== null) {
-    response = <div>{`Hello, ${profile.username}!`}</div>;
-  } else {
-    if (user === null) {
-      response = (
-        <div>
-          {'Feel free to'}
-          <Link to="/register">{'sign up'}</Link>
-          {' or '}
-          <Link to="/login">{'login'}</Link>
-          {'.'}
-        </div>
-      );
+  type LoginState = 'logged-in' | 'logged-out' | 'reset';
+
+  const [response, setResponse] = useState({
+    state: 'reset',
+    message: <></>
+  });
+
+  useEffect(() => {
+    function updateResponse() {
+      if (response.state !== 'logged-in' && user !== null && profile !== null) {
+        setResponse({
+          state: 'logged-in',
+          message: (
+            <>
+              <div className="info">
+                <span className="header">
+                  <img className="logo" src={Logo} />
+                  <span className="response">
+                    <span className="username">{profile.username}</span>
+                    <span>Profile Card</span>
+                  </span>
+                </span>
+              </div>
+              <div className="actions">
+                <span className="button" onClick={logout}>
+                  Logout
+                </span>
+              </div>
+            </>
+          )
+        });
+      } else if (response.state !== 'logged-out' && user === null) {
+        setResponse({
+          state: 'logged-out',
+          message: (
+            <>
+              <div className="info">
+                <span className="header">
+                  <img className="logo" src={Logo} />
+                  <span className="response">
+                    <span>Welcome to</span>
+                    <span className="sitename">owiki</span>
+                  </span>
+                </span>
+              </div>
+              <div className="actions">
+                <Link className="button" to="/register">
+                  Register
+                </Link>
+                <Link className="button" to="/login">
+                  Login
+                </Link>
+              </div>
+            </>
+          )
+        });
+      }
     }
-  }
+    updateResponse();
+  }, [response, user, profile]);
 
   return (
-    <>
-      <div>{'owiki!'}</div>
-      {response}
-    </>
+    <div className="container center-v center-h">
+      <div className="profile-card">{response.message}</div>
+    </div>
   );
 }
