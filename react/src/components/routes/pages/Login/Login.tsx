@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import './Login.scss';
 import { providers } from 'components/firebase/firebase.auth';
 import { validateAccountFields, FieldTypes } from 'components/utils/validations.utils';
+import Container from 'components/interfaces/container/Container';
+import Card, { ICard } from 'components/interfaces/card/Card';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -60,44 +62,71 @@ export default function Login() {
     }
   }
 
+  const cardProps: ICard = {
+    title: { value: 'Account' },
+    description: { value: 'Login' },
+    contents: [
+      {
+        value: (
+          <div
+            className={`input-group ${errors.email !== '' ? 'invalid' : ''}`}
+          >
+            <p className="input-name">Email address:</p>
+            <input
+              value={email}
+              onChange={e => {
+                setEmail(e.target.value);
+                validateField('email');
+              }}
+            />
+          </div>
+        )
+      },
+      {
+        value: (
+          <div
+            className={`input-group ${errors.username !== '' ? 'invalid' : ''}`}
+          >
+            <p className="input-name">Username:</p>
+            <input
+              value={username}
+              onChange={e => {
+                setUsername(e.target.value);
+                validateField('username');
+              }}
+            />
+          </div>
+        )
+      },
+      {
+        value: (
+          <div
+            className={`input-group ${errors.password !== '' ? 'invalid' : ''}`}
+          >
+            <p className="input-name">Password:</p>
+            <input
+              type="password"
+              value={password}
+              onChange={e => {
+                setPassword(e.target.value);
+                validateField('password');
+              }}
+            />
+          </div>
+        )
+      }
+    ],
+    actions: [
+      {
+        value: 'Login',
+        button: { onClick: handleLogin }
+      }
+    ]
+  };
+
   return (
-    <div className="login">
-      <div>Login</div>
-      <div className={errors.email !== '' ? 'invalid' : ''}>
-        <p>Email address:</p>
-        <input
-          type="email"
-          value={email}
-          onChange={e => {
-            setEmail(e.target.value);
-            validateField('email');
-          }}
-        />
-      </div>
-      <div className={errors.username !== '' ? 'invalid' : ''}>
-        <p>Username:</p>
-        <input
-          value={username}
-          onChange={e => {
-            setUsername(e.target.value);
-            validateField('username');
-          }}
-        />
-      </div>
-      <div className={errors.password !== '' ? 'invalid' : ''}>
-        <p>Password:</p>
-        <input
-          type="password"
-          value={password}
-          onChange={e => {
-            setPassword(e.target.value);
-            validateField('password');
-          }}
-        />
-      </div>
-      <button type="submit" onClick={handleLogin}>
-        Login
-      </button>
-    </div>
+    <Container className="center-h center-v">
+      <Card className="login" {...cardProps} />
+    </Container>
   );
 }
