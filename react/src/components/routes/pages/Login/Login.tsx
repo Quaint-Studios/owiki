@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 
 import './Login.scss';
 import { providers } from 'components/firebase/firebase.auth';
-import { validateAccountFields, FieldTypes } from 'components/utils/validations.utils';
+import {
+  validateAccountFields,
+  FieldTypes
+} from 'components/utils/validations.utils';
 import Container from 'components/interfaces/container/Container';
 import Card, { ICard } from 'components/interfaces/card/Card';
 
@@ -36,8 +39,6 @@ export default function Login() {
 
     providers.handleEmailProvider('login', credentials, handleLoginErrors);
   }
-
-  
 
   function validateField(fieldType: FieldTypes) {
     const credentials = {
