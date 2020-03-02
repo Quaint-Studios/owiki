@@ -1,8 +1,8 @@
 import * as functions from 'firebase-functions';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+/* import functions from './functions/functions.main';
+
+functions.forEach((func, name) => {
+  exports[name] = func;
+});
+*/
