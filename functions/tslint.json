@@ -6,7 +6,7 @@
     // Do not allow any imports for modules that are not in package.json. These will almost certainly fail when
     // deployed.
     // UPDATE - Change this line whenever a new path is added to tsconfig.json
-    "no-implicit-dependencies": [true, ["@utils","@express"]],
+    "no-implicit-dependencies": [true, ["@utils","@express", "@proj"]],
 
     // Warn when an import will have side effects.
     "no-import-side-effect": false,

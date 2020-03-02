@@ -17,7 +17,8 @@
   "main": "lib/index.js",
   "_moduleAliases": {
     "@utils": "lib/utils",
-    "@express": "lib/express"
+    "@express": "lib/express",
+    "@proj": "lib"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
+    "@types/validator": "^12.0.1",
     "firebase-functions-test": "^0.2.0",
     "jest": "^25.1.0"
   },
