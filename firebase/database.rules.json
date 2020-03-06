@@ -1,6 +1,34 @@
 {
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        "username": {
+          ".write": "$uid === auth.uid",
+          ".read": true,
+          ".validate": "newData.isString() && newData.val().length >= 3"
+        },
+        "name": {
+          ".read": "$uid === auth.uid",
+          "first": {
+            ".write": "$uid === auth.uid",
+            ".validate": "newData.isString() && newData.val().length > 1"
+          },
+          "last": {
+            ".write": "$uid === auth.uid",
+            ".validate": "newData.isString() && newData.val().length > 1"
+          },
+          "$wildcard2": {
+            ".write": false,
+            ".read": false
+          }
+        },
+        "$wildcard": {
+          ".write": false,
+          ".read": false
+        }
+      }
+    }
   }
 }
