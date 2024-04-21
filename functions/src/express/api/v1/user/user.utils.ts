@@ -1,5 +1,5 @@
 export function validateUsername(username: string) {
-  const rgx = /^(([a-zA-Z])([a-zA-Z0-9_]){2,14})$/;
+  const rgx = /^(([a-zA-Z])\w{2,14})$/;
 
   return rgx.test(username);
 }

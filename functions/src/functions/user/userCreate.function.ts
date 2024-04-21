@@ -1,4 +1,6 @@
 /*
+This can be used later:
+
 import * as functions from 'firebase-functions';
 import { db } from '@express/express.main';
 import { handleFunctionError } from '../functions.utils';

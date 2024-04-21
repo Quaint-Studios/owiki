@@ -3,7 +3,10 @@ import './aliases';
 import './firebase.main';
 import { webApi } from '@express/express.main';
 
-/* import functions from './functions/functions.main';
+/*
+This can be used later:
+
+import functions from './functions/functions.main';
 
 functions.forEach((func, name) => {
   exports[name] = func;

@@ -27,8 +27,8 @@ export function handleEmailProvider(
         .createUserWithEmailAndPassword(email, password)
         .catch(function(error) {
           // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
+          let errorCode = error.code;
+          let errorMessage = error.message;
           if (errorCode === 'auth/weak-password') {
             console.log('The password is too weak.');
           } else {
@@ -46,8 +46,8 @@ export function handleEmailProvider(
         .signInWithEmailAndPassword(email, password)
         .catch(function(error) {
           // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
+          let errorCode = error.code;
+          let errorMessage = error.message;
           if (errorCode === 'auth/wrong-password') {
             alert('Wrong password.');
           } else {

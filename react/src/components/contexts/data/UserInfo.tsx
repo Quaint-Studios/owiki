@@ -89,7 +89,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
         return { ...state };
       }
 
-      // TODO: Temporarily the only auth support for a while.
+      // NOTE: Temporarily the only auth support for a while.
       if (
         action.payload === undefined ||
         action.payload.credentials === undefined
@@ -127,7 +127,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 /**
  * Context JSX
  */
-export function UserInfo({ children }: IProps) {
+export function UserInfo({ children }: Readonly<IProps>) {
   const initialState: IState = {
     user: null,
     profile: null,

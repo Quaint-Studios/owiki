@@ -13,6 +13,6 @@ export const logout = () =>
     .then(() => {
       console.log('Google User signed out successfully.');
     })
-    .catch(err => {
+    .catch((err: string) => {
       console.error('Google User Signout Error:' + err);
     });

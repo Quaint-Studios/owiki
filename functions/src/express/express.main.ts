@@ -13,7 +13,7 @@ import { debug } from '../utils/essentials.utils';
 const main = express(); // The glue that puts it all together!
 
 // Latest API Version
-main.get('/api/v', (req, res) => {
+main.get('/api/v', (req: any, res: any) => {
   res.json({ api: config.root });
 });
 
